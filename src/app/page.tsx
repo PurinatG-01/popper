@@ -9,6 +9,7 @@ export default function Home() {
     ;(async function () {
       try {
         const response = await axios.get<{ msg: string; status: number }>(
+          // TODO: update API domain
           "https://gin-main-swbyfznsjq-de.a.run.app/test"
         )
         setResponse(response.data)

@@ -26,6 +26,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "dotenv": "^16.0.3",
     "postcss-loader": "^7.3.0"
   }
 }
