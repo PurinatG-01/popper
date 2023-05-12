@@ -1,23 +1,25 @@
 "use client"
 import Card from "@/components/main/Card"
 import { useEffect, useState } from "react"
-import axios from "axios"
-export default function Home() {
-  const [response, setResponse] = useState<{ msg: string; status: number }>()
+import useQuery from "@/hooks/useQuery"
 
+export default function Home() {
+  const [data, setData] = useState<{msg: string}>()
+  const { get } = useQuery()
   useEffect(() => {
     ;(async function () {
+      console.log(process.env)
       try {
-        const response = await axios.get<{ msg: string; status: number }>(
-          // TODO: update API domain
-          "https://gin-main-swbyfznsjq-de.a.run.app/test"
-        )
-        setResponse(response.data)
+        const response = await get<{msg: string}>('/test')
+        console.log(response.data.data)
+        const result = response.data.data
+        setData(result)
       } catch (error) {
         console.error(error)
       }
     })()
   }, [])
+  
   return (
     <main className="flex min-h-screen flex-col gap-4 p-24">
       <h1 className="text-3xl tracking-widest text-neutral-200 font-bold">
@@ -35,7 +37,7 @@ export default function Home() {
             Proident ullamco in ad minim anim. Dolore id labore consequat
             consequat. Tempor sint fugiat adipisicing dolor.
           </p>
-          <code>{response?.msg} | {response?.status}</code>
+          <code>{data?.msg}</code>
         </article>
       </Card>
     </main>
