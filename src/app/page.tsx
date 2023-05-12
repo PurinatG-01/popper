@@ -1,19 +1,17 @@
-"use client";
-
-import Image from "next/image"
+"use client"
 import Card from "@/components/main/Card"
 import { useEffect, useState } from "react"
 import axios from "axios"
 export default function Home() {
-  const [response, setResponse] = useState()
+  const [response, setResponse] = useState<{ msg: string; status: number }>()
 
   useEffect(() => {
     ;(async function () {
       try {
-        const response = await axios.get<{msg: string, status: number}>(
+        const response = await axios.get<{ msg: string; status: number }>(
           "https://gin-main-swbyfznsjq-de.a.run.app/test"
         )
-        setResponse(response)
+        setResponse(response.data)
       } catch (error) {
         console.error(error)
       }
@@ -36,6 +34,7 @@ export default function Home() {
             Proident ullamco in ad minim anim. Dolore id labore consequat
             consequat. Tempor sint fugiat adipisicing dolor.
           </p>
+          <code>{response?.msg} | {response?.status}</code>
         </article>
       </Card>
     </main>
